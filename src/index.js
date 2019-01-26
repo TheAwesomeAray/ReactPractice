@@ -3,18 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
 import * as serviceWorker from './serviceWorker';
-import PropTypes from 'prop-types';
 
-
-ReactDOM.render(<Greeting name={1} />, document.getElementById('root'));
-
-function Greeting(props) {
-    return <h1>Hello, {props.name}</h1>
+const authors = [
+  {
+    name: 'Mark Twain',
+    imageUrl: '/images/authors/marktwain.jpg',
+    imageSource: 'Wikimedia Commons',
+    books: ['The Adventures of Huckleberry Finn', 'Test', 'Test2']
   }
+];
+
+const state = {
+  turnData: {
+    author: authors[0],
+    books: authors[0].books
+  }
+}
+
+ReactDOM.render(<AuthorQuiz {...state} />, document.getElementById('root'));
   
-  Greeting.propTypes = {
-    name: PropTypes.string
-  };
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
