@@ -25,3 +25,8 @@
 .answer:hover {
   background-color: lightblue;
 }
+
+.continue {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

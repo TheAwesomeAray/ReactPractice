@@ -2,8 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
+import AddAuthorForm from './AddAuthorForm';
 import * as serviceWorker from './serviceWorker';
 import {shuffle, sample} from 'underscore';
+import {BrowserRouter, Route} from 'react-router-dom'
+import * as Redux from 'redux';
+import * as ReactRedux from 'react-redux';
+import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 
 const authors = [
   {
@@ -54,22 +59,51 @@ function getTurnData(authors) {
   }
 }
 
-const state = {
-  turnData: getTurnData(authors),
-  highlight: '',
-  onAnswerSelected: onAnswerSelected
+function reducer(state = { authors, turnData: getTurnData(authors), highlight: ''}, 
+action) {
+  switch (action.type) {
+    case 'ANSWER_SELECTED':
+      const isCorrect = state.turnData.author.books.some((book) => book === action.answer);
+      return Object.assign(
+        {}, 
+        state, {
+          highlight: isCorrect ? 'correct' : 'wrong'
+        }
+      )
+    case 'CONTINUE':
+    return Object.assign(
+      {}, 
+      state, {
+        highlight:'',
+        turnData: getTurnData(state.authors)
+      }
+    )
+    case 'ADD_AUTHOR':
+      return Object.assign(
+        {}, 
+        state, {
+          authors: state.authors.concat([action.author])
+        }
+      )
+    default: return state;
+  }
 }
 
-function onAnswerSelected (answer) {
-  const isCorrect = state.turnData.author.books.some((book) => book === answer);
-  state.highlight = isCorrect ? 'correct' : 'wrong';
-  render();
-}
 
-function render() {
-  ReactDOM.render(<AuthorQuiz {...state} />, document.getElementById('root'));
-}
-render();
+let store = Redux.createStore(reducer, devToolsEnhancer()
+);
+
+
+ReactDOM.render(
+  <BrowserRouter>
+  <React.Fragment>
+  <ReactRedux.Provider store={store}>
+    <Route exact path="/" component={AuthorQuiz} />
+    <Route path="/add" component={AddAuthorForm} />
+    </ReactRedux.Provider>
+  </React.Fragment>
+  </BrowserRouter>, document.getElementById('root')
+);
 
   
 // If you want your app to work offline and load faster, you can change
