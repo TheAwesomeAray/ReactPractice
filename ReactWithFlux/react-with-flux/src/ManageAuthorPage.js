@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import Toastr from 'toastr';
 import './toastr.css';
 import './bootstrap.min.css';
+import queryString from 'query-string';
 
 class ManageAuthorPage extends React.Component {
     constructor(props) {
@@ -21,6 +22,12 @@ class ManageAuthorPage extends React.Component {
         firstName: '',
         lastName: ''
     })
+    componentWillMount = () => {
+        var id = queryString.parse(this.props.location.search).id;
+        this.setState({
+            author: AuthorApi.getAuthorById(id)
+        });
+    }
     onFieldChange(name, value) {
         this.setState(prevState => {
             let author = prevState.author;
@@ -77,7 +84,6 @@ const AuthorForm = (props) => {
         event.preventDefault();
         props.onAddAuthor();
     }
-    console.log(props.errors);
     return (
         <form className="needs-validation container" onSubmit={handleSubmit}>
             <FormInput name="firstName"
@@ -95,6 +101,13 @@ const AuthorForm = (props) => {
         </form>
     );
 }
+
+AuthorForm.propTypes = {
+    author: PropTypes.object.isRequired,
+    errors: PropTypes.object,
+    onFieldChange: PropTypes.func.isRequired,
+    onAddAuthor: PropTypes.func.isRequired
+  }
 
 const FormInput = (props) => {
     var wrapperClass = "form-row";

@@ -25,6 +25,7 @@ ReactDOM.render(
                 <Route path="/About" component={About} />
                 <Route path="/Authors" component={AuthorPage} />
                 <Route path="/AddAuthor" component={ManageAuthorPage} />
+                <Route path="/AddAuthor/:id" component={ManageAuthorPage} />
                 <Redirect from="/about-us" to="/About" />
                 <Route  component={Page404} />
             </Switch>

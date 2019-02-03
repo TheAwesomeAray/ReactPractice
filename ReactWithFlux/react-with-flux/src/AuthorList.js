@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'proptypes';
+import { Link } from 'react-router-dom';
 
 const AuthorList = (props) => {
 
@@ -32,9 +33,9 @@ const AuthorRow = (props) => {
     return (
         <tr>
             <td>
-                <a href={"/Author/" + props.author.id}>
+                <Link to={"/AddAuthor?id=" + props.author.id}>
                     {props.author.id}
-                </a>
+                </Link>
             </td>
             <td>
                 {props.author.firstName} {props.author.lastName} 

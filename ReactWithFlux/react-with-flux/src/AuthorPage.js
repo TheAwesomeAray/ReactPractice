@@ -4,6 +4,9 @@ import AuthorList from './AuthorList';
 import { Link } from 'react-router-dom';
 
 class AuthorPage extends React.Component {
+    function ({ match }) {
+        console.log(match);
+    }
     constructor(props) {
         super(props);
         this.state = AuthorPage.initialState();
