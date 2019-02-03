@@ -33,7 +33,8 @@ class AuthorForm extends React.Component {
         });
     }
     render() {
-        return <form onSubmit={this.handleSubmit}>
+        return 
+        <form onSubmit={this.handleSubmit}>
             <div className="row">
                 <div className="AddAuthorForm__input col-4">
                     <label htmlFor="name">Name</label>
@@ -60,10 +61,10 @@ class AuthorForm extends React.Component {
             </div>
             <input type="submit" className="btn btn-sm btn-success" label="add" />
         </form>
-    }
+    };
 }
 
-function AddAuthorForm({match, onAddAuthor}) {
+function AddAuthorForm({onAddAuthor}) {
     return (
     <div className="AddAuthorForm container-fluid">
         <h1>Add Author</h1>

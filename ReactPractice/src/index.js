@@ -5,7 +5,7 @@ import AuthorQuiz from './AuthorQuiz';
 import AddAuthorForm from './AddAuthorForm';
 import * as serviceWorker from './serviceWorker';
 import {shuffle, sample} from 'underscore';
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route} from 'react-router-dom';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
 import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
@@ -93,15 +93,14 @@ action) {
 let store = Redux.createStore(reducer, devToolsEnhancer()
 );
 
-
 ReactDOM.render(
   <BrowserRouter>
-  <React.Fragment>
-  <ReactRedux.Provider store={store}>
-    <Route exact path="/" component={AuthorQuiz} />
-    <Route path="/add" component={AddAuthorForm} />
-    </ReactRedux.Provider>
-  </React.Fragment>
+    <React.Fragment>
+    <ReactRedux.Provider store={store}>
+      <Route exact path="/" component={AuthorQuiz} />
+      <Route path="/add" component={AddAuthorForm} />
+      </ReactRedux.Provider>
+    </React.Fragment>
   </BrowserRouter>, document.getElementById('root')
 );
 
