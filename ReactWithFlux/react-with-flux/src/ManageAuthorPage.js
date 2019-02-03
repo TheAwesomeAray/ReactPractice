@@ -4,12 +4,14 @@ import AuthorApi from './StubAuthorAPI';
 import { withRouter } from 'react-router-dom';
 import Toastr from 'toastr';
 import './toastr.css';
+import './bootstrap.min.css';
 
 class ManageAuthorPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            author: ManageAuthorPage.getInitialState()
+            author: ManageAuthorPage.getInitialState(),
+            errors: {}
         };
         this.onFieldChange = this.onFieldChange.bind(this);
         this.onAddAuthor = this.onAddAuthor.bind(this);
@@ -27,7 +29,30 @@ class ManageAuthorPage extends React.Component {
             return author;
         });
     }
+    authorFormIsValid = () => {
+        var formIsValid = true;
+        let errors = {}
+
+        if (this.state.author.firstName.length < 3) {
+            errors['firstName'] = 'First name must be at least 3 characters';
+            formIsValid = false;
+        }
+
+        if (this.state.author.lastName.length < 3) {
+            errors['lastName'] = 'Last name must be at least 3 characters';
+            formIsValid = false;
+        }
+
+        this.setState({
+            errors: errors
+        })
+
+        return formIsValid;
+    }
     onAddAuthor() {
+        if (!this.authorFormIsValid())
+            return;
+
         AuthorApi.saveAuthor(this.state.author);
         Toastr.success('Author Saved.');
         this.props.history.push('/Authors');
@@ -38,7 +63,8 @@ class ManageAuthorPage extends React.Component {
                 <h1>Manage Author</h1>
                 <AuthorForm author={this.state.author} 
                             onFieldChange={this.onFieldChange}
-                            onAddAuthor={this.onAddAuthor} />
+                            onAddAuthor={this.onAddAuthor}
+                            errors={this.state.errors} />
             </div>
     )}
 }
@@ -51,36 +77,43 @@ const AuthorForm = (props) => {
         event.preventDefault();
         props.onAddAuthor();
     }
+    console.log(props.errors);
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="needs-validation container" onSubmit={handleSubmit}>
             <FormInput name="firstName"
                        value={props.author.firstName}
                        label="First Name"
-                       onFieldChange={handleChange} />
+                       onFieldChange={handleChange}
+                       error={props.errors.firstName} />
            
             <FormInput name="lastName"
                        value={props.author.lastName}
                        label="Last Name"
-                       onFieldChange={handleChange} />
+                       onFieldChange={handleChange}
+                       error={props.errors.lastName} />
             <button type="submit" className="btn btn-sm btn-default">Save</button>
         </form>
     );
 }
 
 const FormInput = (props) => {
-    var wrapperClass = "form-group";
+    var wrapperClass = "form-row";
+    var validationClass = "form-control";
     if (props.error && props.error.length > 0) {
-        wrapperClass += " has-error";
+        validationClass += " is-invalid"
     }
     return (
         <div className={wrapperClass}>
             <label htmlFor={props.name}>{props.label}</label>
             <input type="text"
                 name={props.name}
-                className="form-control"
+                className={validationClass}
                 placeholder={props.placeholder}
                 onChange={props.onFieldChange}
                 value={props.value} />
+            <div className="invalid-feedback">
+                {props.error}
+            </div>
         </div>
     );
 }
