@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'proptypes';
 import AuthorApi from './StubAuthorAPI';
 import { withRouter } from 'react-router-dom';
+import Toastr from 'toastr';
+import './toastr.css';
 
 class ManageAuthorPage extends React.Component {
     constructor(props) {
@@ -27,6 +29,7 @@ class ManageAuthorPage extends React.Component {
     }
     onAddAuthor() {
         AuthorApi.saveAuthor(this.state.author);
+        Toastr.success('Author Saved.');
         this.props.history.push('/Authors');
     }
     render() {
