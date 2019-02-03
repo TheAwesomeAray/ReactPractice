@@ -1,5 +1,6 @@
 import React from 'react';
 import './bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -7,18 +8,18 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <a className="nav-link" href="/"><img src="/images/pluralsight-logo.png" alt="test" /></a>
+                    <Link to="/" className="nav-link"><img src="/images/pluralsight-logo.png" alt="test" /></Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/">Home </a>
+                        <Link to="/" className="nav-link">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/About">About</a>
+                        <Link to="/About" className="nav-link">About</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/Authors">Authors</a>
+                        <Link to="/Authors" className="nav-link">Authors</Link>
                     </li>
-                    </ul>
+                </ul>
             </div>
         </nav>
     );
