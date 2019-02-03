@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'proptypes';
+import AuthorApi from './StubAuthorAPI';
+import { withRouter } from 'react-router-dom';
 
 class ManageAuthorPage extends React.Component {
     constructor(props) {
@@ -8,37 +10,46 @@ class ManageAuthorPage extends React.Component {
             author: ManageAuthorPage.getInitialState()
         };
         this.onFieldChange = this.onFieldChange.bind(this);
+        this.onAddAuthor = this.onAddAuthor.bind(this);
     }
     static getInitialState = () => ({
-        firstName: 'test',
-        lastName: 'test'
+        id: '',
+        firstName: '',
+        lastName: ''
     })
     onFieldChange(name, value) {
         this.setState(prevState => {
             let author = prevState.author;
             author[name] = value;
-            console.log(author);
 
             return author;
         });
-        console.log(this.state);
+    }
+    onAddAuthor() {
+        AuthorApi.saveAuthor(this.state.author);
+        this.props.history.push('/Authors');
     }
     render() {
         return (
             <div>
                 <h1>Manage Author</h1>
-                <AuthorForm author={this.state.author} onFieldChange={this.onFieldChange} />
+                <AuthorForm author={this.state.author} 
+                            onFieldChange={this.onFieldChange}
+                            onAddAuthor={this.onAddAuthor} />
             </div>
     )}
 }
 
 const AuthorForm = (props) => {
     const handleChange = (event) => {
-
         props.onFieldChange(event.target.name, event.target.value);
     }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        props.onAddAuthor();
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <FormInput name="firstName"
                        value={props.author.firstName}
                        label="First Name"
@@ -81,4 +92,4 @@ FormInput.propTypes = {
   }
 
 
-export default ManageAuthorPage;
+export default withRouter(ManageAuthorPage);
