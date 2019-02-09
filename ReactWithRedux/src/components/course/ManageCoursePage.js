@@ -23,18 +23,20 @@ class ManageCoursePage extends React.Component {
             this.setState({course: Object.assign({}, nextProps.course)});
         }
     }
-
     updateCourseState(event) {
         let course = Object.assign({}, this.state.course);
         course[event.target.name] = event.target.value;
         return this.setState({course: course});
     }
-
     saveCourse(event) {
         event.preventDefault();
         this.setState({saving: true});
         this.props.actions.saveCourse(this.state.course)
-            .then(() => this.redirect());
+            .then(() => this.redirect())
+            .catch(error => {
+                toastr.error(error);
+                this.setState({saving: false});
+            });
     }
     redirect() {
         this.setState({saving: false});
