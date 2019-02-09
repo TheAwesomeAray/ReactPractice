@@ -13,6 +13,7 @@ import CouresPage from './components/course/CoursesPage';
 import { loadCourses } from './actions/courseActions';
 import { loadAuthors } from './actions/authorActions';
 import ManageCoursePage from './components/course/ManageCoursePage';
+import '../node_modules/toastr/build/toastr.min.css';
 
 const store = configureStore();
 store.dispatch(loadCourses());

@@ -17,17 +17,18 @@ export function createCourseSuccess(course) {
 export function loadCourses() {
     return function(dispatch) {
         dispatch(beginAjaxCall());
-        courseApi.getAllCourses().then(courses => {
+        return courseApi.getAllCourses().then(courses => {
             dispatch(loadCoursesSuccess(courses));
         }).catch(error => {
             throw(error);
         });
     };
 }
+
 export function saveCourse(course) {
     return function(dispatch) {
         dispatch(beginAjaxCall());
-        courseApi.saveCourse(course).then(savedCourse => {
+         return courseApi.saveCourse(course).then(savedCourse => {
             course.id ? dispatch(updateCourseSuccess(savedCourse)) :
                 dispatch(createCourseSuccess(savedCourse));
         }).catch(error => {
