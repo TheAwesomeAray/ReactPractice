@@ -32,7 +32,7 @@ export function saveCourse(course) {
             course.id ? dispatch(updateCourseSuccess(savedCourse)) :
                 dispatch(createCourseSuccess(savedCourse));
         }).catch(error => {
-            dispatch(ajaxCallError())
+            dispatch(ajaxCallError());
             throw(error);
         });
     };
