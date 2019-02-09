@@ -10,8 +10,10 @@ import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import CouresPage from './components/course/CoursesPage';
+import { loadCourses } from './actions/courseActions';
 
 const store = configureStore();
+store.dispatch(loadCourses());
 
 render (
     <Provider store={store}>
