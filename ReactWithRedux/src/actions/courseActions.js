@@ -6,7 +6,6 @@ export function loadCoursesSuccess(courses) {
 }
 
 export function loadCourses() {
-    console.log("loading course data");
     return function(dispatch) {
         courseApi.getAllCourses().then(courses => {
             dispatch(loadCoursesSuccess(courses));
