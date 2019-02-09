@@ -12,7 +12,7 @@ import AboutPage from './components/about/AboutPage';
 import CouresPage from './components/course/CoursesPage';
 import { loadCourses } from './actions/courseActions';
 import { loadAuthors } from './actions/authorActions';
-import ManageCoursePage from './components/course/ManageCoursePage';
+import ManageCoursePage from './components/course/ManageCoursePage'; //eslint-disable-line import/no-named-as-default
 import '../node_modules/toastr/build/toastr.min.css';
 
 const store = configureStore();

@@ -7,7 +7,6 @@ class App extends React.Component {
         super(props, context);
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (this.props.loading != nextProps.loading) {
             this.setState({loading: Object.assign({}, nextProps.loading)});
         }

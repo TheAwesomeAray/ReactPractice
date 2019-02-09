@@ -3,15 +3,13 @@ import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {ManageCoursePage} from './/ManageCoursePage';
 
-
-
 describe('Manage Course Page', () => {
     it ('sets error message when trying to save empty title', () => {
         const props = {
             course: {id: '', watchHref: '', title: '', length: '', category: ''},
             authors: [],
             actions: { saveCourse: () => { return Promise.resolve(); }}
-        }
+        };
 
         const wrapper = mount(<ManageCoursePage {...props}/>);
         const saveButton = wrapper.find('input').last();
