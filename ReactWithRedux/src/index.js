@@ -12,7 +12,7 @@ import AboutPage from './components/about/AboutPage';
 import CouresPage from './components/course/CoursesPage';
 import { loadCourses } from './actions/courseActions';
 import { loadAuthors } from './actions/authorActions';
-import ManangeCoursePage from './components/course/ManageCoursePage';
+import ManageCoursePage from './components/course/ManageCoursePage';
 
 const store = configureStore();
 store.dispatch(loadCourses());
@@ -24,7 +24,8 @@ render (
             <Route path="/" component={App} >
                 <IndexRoute component={HomePage} />
                 <Route path="courses" component={CouresPage} /> 
-                <Route path="course/:id" component={ManangeCoursePage} /> 
+                <Route path="course" component={ManageCoursePage} /> 
+                <Route path="course/:id" component={ManageCoursePage} /> 
                 <Route path="about" component={AboutPage} /> 
             </Route>
         </Router>
