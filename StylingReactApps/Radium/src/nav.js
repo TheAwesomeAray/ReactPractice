@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import classnames from 'classnames';
 
 import styles from './nav-styles';
 const { func, bool } = React.PropTypes
